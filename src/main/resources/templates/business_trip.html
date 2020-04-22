@@ -59,10 +59,10 @@
                                 <td th:text="${leave.endStr}">2017-05-11 09：00</td>
                                 <td th:text="${leave.statusStr}">已批准</td>
                                 <td class="center"><a th:onclick="${'accept('+leave.id+')'}"
-                                                      style="margin-left: 10px;cursor:pointer">批准</a><a
-                                        th:onclick="${'reject('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">不批准</a><a
-                                        th:onclick="${'delete1('+leave.id+')'}"
-                                        style="margin-left: 10px;cursor:pointer">删除申请</a></td>
+                                                      style="margin-left: 10px;cursor:pointer">批准</a>
+<!--                                    <a th:onclick="${'reject('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">不批准</a>-->
+                                    <a th:href="@{/leave/update/new(leaveId=${leave.id})}">不批准</a>
+                                    <a th:onclick="${'delete1('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">删除申请</a></td>
                             </tr>
                             </tbody>
                         </table>

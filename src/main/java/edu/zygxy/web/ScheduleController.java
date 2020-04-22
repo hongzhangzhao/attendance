@@ -112,4 +112,11 @@ public class ScheduleController {
         modelMap.addAttribute("leave", s);
         return "leave_reason";
     }
+
+    @RequestMapping("/leave/update/new")
+    public String updateEmployeeNew(@RequestParam long leaveId, ModelMap modelMap) {
+        Schedule s = scheduleService.get(leaveId);
+        modelMap.addAttribute("leave", s);
+        return "buzz_reason";
+    }
 }
