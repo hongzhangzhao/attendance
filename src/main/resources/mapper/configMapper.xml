@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zygxy.dao.ConfigMapper">
+
+    <insert id="insertConfig" parameterType="edu.zygxy.pojo.Config">
+        INSERT INTO config
+        SET
+        start=#{start},
+        end=#{end},
+        create_time=now(),
+        update_time=now()
+    </insert>
+
+    <select id="getConfig" resultType="edu.zygxy.pojo.Config">
+        SELECT * FROM config;
+    </select>
+
+    <delete id="deleteConfig">
+        DELETE FROM config;
+    </delete>
+</mapper>

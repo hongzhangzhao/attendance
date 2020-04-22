@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zygxy.dao.WorkCheckMapper">
+
+    <insert id="insertWorkCheck" parameterType="edu.zygxy.pojo.WorkCheck">
+        INSERT INTO work_check
+        SET
+        time=now(),
+        start=#{start},
+        `end`=#{end},
+        `type`=#{type},
+        `start_check`=now(),
+        `end_check`=now(),
+        user_id=#{userId},
+        work_time=0,
+        create_time=now(),
+        update_time=now()
+    </insert>
+
+    <update id="updateWorkCheckEndCheck">
+        UPDATE work_check SET
+        `end_check`=now(),
+        work_time=#{workTime}
+        WHERE
+        user_id=#{userId}
+        AND
+        time=DATE_FORMAT(now(),'%Y-%m-%d');
+    </update>
+
+
+
+
+    <select id="listWorkChecksByUserId" resultType="edu.zygxy.pojo.WorkCheck">
+        SELECT * FROM work_check WHERE user_id=#{userId} ORDER BY time DESC ;
+    </select>
+
+    <select id="listWorkChecks" resultType="edu.zygxy.pojo.WorkCheck">
+        SELECT * FROM work_check ORDER BY time DESC ;
+    </select>
+
+    <select id="getWorkCheckByUserIdAndTime" resultType="edu.zygxy.pojo.WorkCheck">
+        SELECT * FROM work_check WHERE user_id=#{userId} AND time=DATE_FORMAT(now(),'%Y-%m-%d');
+    </select>
+</mapper>

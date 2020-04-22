@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zygxy.dao.ScheduleMapper">
+
+    <insert id="insertSchedule" parameterType="edu.zygxy.pojo.Schedule">
+        INSERT INTO schedule
+        SET
+        reason=#{reason},
+        start=#{start},
+        `end`=#{end},
+        `status`=0,
+        `type`=#{type},
+        user_id=#{userId},
+        create_time=now(),
+        update_time=now()
+    </insert>
+
+    <select id="listSchedulesByUserIdAndType" resultType="edu.zygxy.pojo.Schedule">
+        SELECT * FROM schedule WHERE user_id=#{userId} AND type=#{type} ORDER BY create_time DESC ;
+    </select>
+
+    <select id="listShcedulesByType" resultType="edu.zygxy.pojo.Schedule">
+        SELECT * FROM schedule WHERE type=#{type} ORDER BY create_time DESC ;
+    </select>
+
+    <update id="updateScheduleStatus">
+        UPDATE schedule SET status=#{status} WHERE id=#{id}
+    </update>
+    <delete id="deleteSchedule">
+        DELETE FROM schedule WHERE id=#{id};
+    </delete>
+    <select id="selectById" resultType="edu.zygxy.pojo.Schedule">
+        SELECT * FROM schedule WHERE id=#{id};
+    </select>
+</mapper>

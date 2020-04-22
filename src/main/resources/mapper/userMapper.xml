@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zygxy.dao.UserMapper">
+
+    <select id="countUserByDepartmentId" resultType="long">
+        SELECT COUNT(*) FROM user where department_id=#{departmentId}
+    </select>
+
+    <insert id="insertUser" parameterType="edu.zygxy.pojo.User">
+        INSERT INTO user
+        SET
+        password=#{password},
+        name=#{name},
+        email=#{email},
+        phone=#{phone},
+        <if test="departmentId != null">
+            department_id=#{departmentId},
+        </if>
+        <if test="roleId == null">
+            role_id=3,
+        </if>
+        <if test="roleId != null">
+            role_id=#{roleId},
+        </if>
+        create_time=now(),
+        update_time=now()
+    </insert>
+
+    <select id="getUserById" resultType="edu.zygxy.pojo.User">
+        SELECT * FROM user WHERE id=#{id}
+    </select>
+
+    <select id="getUserByEmail" resultType="edu.zygxy.pojo.User">
+        SELECT * FROM user WHERE email=#{email}
+    </select>
+
+    <select id="listUsers" resultType="edu.zygxy.pojo.User">
+        SELECT * FROM user ORDER BY role_id ASC , create_time DESC
+    </select>
+    <select id="listUsersByDepartmentId" resultType="edu.zygxy.pojo.User">
+        SELECT * FROM user WHERE department_id=#{departmentId} ORDER BY role_id ASC , create_time DESC
+    </select>
+
+    <select id="listUserNamesByRoleIdAndDepartmentId" resultType="string">
+        SELECT name FROM user WHERE role_id=#{roleId} AND department_id=#{departmentId}
+    </select>
+
+    <update id="updateUser" parameterType="edu.zygxy.pojo.User">
+        UPDATE user
+        SET
+        <if test="password !=null ">
+            password=#{password},
+        </if>
+        <if test="name !=null ">
+            name=#{name},
+        </if>
+        <if test="email !=null ">
+            email=#{email},
+        </if>
+        <if test="phone !=null">
+            phone=#{phone},
+        </if>
+        <if test="departmentId != null">
+            department_id=#{departmentId},
+        </if>
+        <if test="roleId != null">
+            role_id=#{roleId},
+        </if>
+        update_time=now()
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteUserById" parameterType="long">
+        DELETE FROM user where id=#{id}
+    </delete>
+</mapper>

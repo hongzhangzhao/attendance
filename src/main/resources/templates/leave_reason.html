@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>考勤管理系统</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../lib/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../lib/css/matrix-style.css"/>
+    <link rel="stylesheet" href="../lib/css/matrix-media.css"/>
+    <link rel="stylesheet" href="../lib/css/font-awesome.css"/>
+</head>
+<body>
+
+<div id="l-app">
+    <l-brand></l-brand>
+    <l-navigator>
+        <l-drop-menu-btn id="userInfo" title="欢迎您" icon="icon icon-user">
+            <l-drop-menu-item href="/login" icon="icon icon-reply" title="注销"></l-drop-menu-item>
+        </l-drop-menu-btn>
+    </l-navigator>
+    <l-sidebar>
+        <l-side-btn href="/index" icon="icon icon-home" title="首页"></l-side-btn>
+        <l-side-btn href="/employee" icon="icon icon-group" title="员工管理"></l-side-btn>
+        <l-side-btn href="/department" icon="icon icon-briefcase" title="部门管理"></l-side-btn>
+        <l-side-btn href="/work" icon="icon icon-edit" title="考勤管理"></l-side-btn>
+        <l-side-btn href="/buzz" icon="icon icon-plane" title="出差管理"></l-side-btn>
+        <l-side-btn href="/leave" icon="icon icon-ambulance" title="请假管理"></l-side-btn>
+        <l-side-btn href="/stat" icon="icon icon-bar-chart" title="数据统计"></l-side-btn>
+        <l-side-btn href="/system" icon="icon icon-cog" title="系统设置"></l-side-btn>
+    </l-sidebar>
+
+    <l-content>
+        <l-router slot="router" href="/index" title="首页" iscurrent="false"></l-router>
+        <l-router slot="router" href="/leave" title="请假管理"></l-router>
+        <l-router slot="router" href="#" title="驳回" iscurrent="true"></l-router>
+        <l-container>
+            <l-widget-container title="驳回" icon="icon icon-edit">
+                <l-form>
+                    <l-form-input id="name" type="text" size="10" title="姓名" th:value="${leave.id}"></l-form-input>
+                    <l-form-input id="email" type="email" size="10" title="邮箱" th:value="${leave.type}"></l-form-input>
+
+                </l-form>
+                <l-form-btn-container>
+                    <button th:onclick="${'updateUser('+leave.id+')'}" class="btn btn-success">处理</button>
+                </l-form-btn-container>
+            </l-widget-container>
+        </l-container>
+
+    </l-content>
+</div>
+
+
+<script src="../lib/js/jquery.min.js"></script>
+<script src="../lib/js/bootstrap.min.js"></script>
+<script src="../lib/js/matrix.js"></script>
+<script src="../lib/js/vue.js"></script>
+<script src="../lib/js/component.js"></script>
+<script src="../lib/js/select2.min.js"></script>
+<script src="../lib/js/matrix.form_common.js"></script>
+<script>
+    new Vue({
+        el: '#l-app'
+    })
+    function updateUser(id) {
+
+
+    }
+</script>
+</body>
+</html>

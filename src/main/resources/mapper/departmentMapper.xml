@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zygxy.dao.DepartmentMapper">
+
+    <insert id="insertDepartment" parameterType="edu.zygxy.pojo.Department">
+        INSERT INTO department
+        SET
+        name=#{name},
+        `desc`=#{desc},
+        create_time=now(),
+        update_time=now()
+    </insert>
+
+    <select id="getDepartmentById" resultType="edu.zygxy.pojo.Department">
+        SELECT * FROM department WHERE id=#{id}
+    </select>
+
+    <select id="listDepartments" resultType="edu.zygxy.pojo.Department">
+        SELECT * FROM department;
+    </select>
+
+
+    <update id="updateDepartment" parameterType="edu.zygxy.pojo.Department">
+        UPDATE department
+        SET
+        <if test="name !=null ">
+            name=#{name},
+        </if>
+        <if test="desc !=null ">
+            work_desc=#{desc},
+        </if>
+        update_time=now()
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteDepartmentById">
+        DELETE FROM department WHERE id=#{id}
+    </delete>
+</mapper>

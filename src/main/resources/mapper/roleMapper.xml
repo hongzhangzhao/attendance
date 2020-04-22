@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zygxy.dao.RoleMapper">
+
+
+    <select id="getRoleById" resultType="edu.zygxy.pojo.Role">
+        SELECT * FROM role WHERE id=#{id}
+    </select>
+    <select id="listRoles" resultType="edu.zygxy.pojo.Role">
+        SELECT * FROM role ORDER BY id DESC ;
+    </select>
+
+
+</mapper>

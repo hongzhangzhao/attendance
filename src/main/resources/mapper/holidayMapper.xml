@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zygxy.dao.HolidayMapper">
+
+    <insert id="insertHoliday" parameterType="edu.zygxy.pojo.Holiday">
+        INSERT INTO holiday
+        SET
+        time=#{time},
+        remark=#{remark},
+        create_time=now(),
+        update_time=now()
+    </insert>
+
+    <select id="getHolidayById" resultType="edu.zygxy.pojo.Holiday">
+        SELECT * FROM holiday WHERE id=#{id}
+    </select>
+
+    <select id="listHolidays" resultType="edu.zygxy.pojo.Holiday">
+        SELECT * FROM holiday ORDER BY time DESC ;
+    </select>
+
+    <delete id="deleteHolidayById">
+        DELETE FROM holiday WHERE id=#{id}
+    </delete>
+</mapper>

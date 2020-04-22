@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>考勤管理系统</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="lib/css/matrix-style.css"/>
+    <link rel="stylesheet" href="lib/css/matrix-media.css"/>
+    <link rel="stylesheet" href="lib/css/font-awesome.css"/>
+    <link rel="stylesheet" href="lib/css/uniform.css"/>
+</head>
+<body>
+
+<div id="l-app">
+    <l-brand></l-brand>
+    <l-navigator>
+        <l-drop-menu-btn id="userInfo" th:title="${session.username}" icon="icon icon-user">
+            <l-drop-menu-item href="/login" icon="icon icon-reply" title="注销"></l-drop-menu-item>
+        </l-drop-menu-btn>
+    </l-navigator>
+    <l-sidebar>
+        <l-side-btn href="/index" icon="icon icon-home" title="首页"></l-side-btn>
+        <l-side-btn href="/employee" icon="icon icon-group" title="员工管理"></l-side-btn>
+        <l-side-btn href="/department" icon="icon icon-briefcase" title="部门管理"></l-side-btn>
+        <l-side-btn href="/work" icon="icon icon-edit" title="考勤管理"></l-side-btn>
+        <l-side-btn href="/buzz" icon="icon icon-plane" title="出差管理"></l-side-btn>
+        <l-side-btn href="/leave" icon="icon icon-ambulance" title="请假管理"></l-side-btn>
+        <l-side-btn href="/stat" icon="icon icon-bar-chart" title="数据统计"></l-side-btn>
+        <l-side-btn href="/system" icon="icon icon-cog" title="系统设置"></l-side-btn>
+    </l-sidebar>
+
+    <l-content>
+        <l-router slot="router" href="/index" title="首页" iscurrent="false"></l-router>
+
+        <l-container>
+            <l-widget-container title="公司简介" icon="icon icon-briefcase">
+                <l-container>
+                    <h4>天津致盟科技有限公司</h4>
+                    <p>集团系于1990年投资成立，现有投资总额为11,750万美元，主营高档水龙头、卫浴配件、阀门配件、锁具等各类卫浴家居产品，是一家集产品研发、生产和市场营销三位一体的企业。2006年被台湾《工商时报》评为历年来大陆成长最快台商。集团在厦门拥有六个生产基地，已建成30万平方米，在建45万平方米，员工6000余人；并在福州、珠海、越南胡志明市建设生产基地。作为全球卫生洁具业的领先制造商，公司凭借着垂直整合的生产体系、一流的工艺流程、强大的研发团队、先进的实验设备和严格的品管系统，与全球最大的国际知名品牌合作，产品销往北美、欧洲最大的家装连锁店及专业批发市场，年销售各类高档水龙头1500～2000万套以上，是亚洲最大的卫浴五金专业制造商，在同行业中享有很高的声誉。目前，全球有3亿多家庭在使用的产品。</p>
+                    <img src="lib/img/company.jpg" style="height: 200px;margin-bottom: 10px" />
+                    <p>地址：中国 天津 天津市 和平区杏建设路61号<br/>邮编：300100<br/>电子邮箱：jzyjava@163.com<br/>联系方式：18222928888</p>
+                </l-container>
+            </l-widget-container>
+            <l-widget-container title="权限说明" icon="icon icon-briefcase">
+                <l-container>
+                    <h4>权限说明</h4>
+                    <p>超级管理员：所有权限<br/>人事管理员：假期审核，出差审核，部门管理，员工管理<br/>部门领导：假期审核，出差审核，员工管理</p>
+                </l-container>
+            </l-widget-container>
+            <l-widget-container title="考勤助手" icon="icon icon-calendar">
+                <l-container>
+                    <l-quick-action>
+                        <l-quick-btn title="打卡上下班" icon="icon icon-check" color="green" href="/work"></l-quick-btn>
+                        <l-quick-btn title="出差" icon="icon icon-plane" href="/buzz"></l-quick-btn>
+                        <l-quick-btn title="请假" icon="icon icon-bell" color="yellow" href="/leave"></l-quick-btn>
+                    </l-quick-action>
+                </l-container>
+            </l-widget-container>
+        </l-container>
+    </l-content>
+</div>
+
+
+<script src="lib/js/jquery.min.js"></script>
+<script src="lib/js/jquery.uniform.js"></script>
+<script src="lib/js/jquery.dataTables.min.js"></script>
+<script src="lib/js/bootstrap.min.js"></script>
+<script src="lib/js/matrix.js"></script>
+<script src="lib/js/matrix.tables.js"></script>
+<script src="lib/js/vue.js"></script>
+<script src="lib/js/component.js"></script>
+<script th:inline="javascript">
+    new Vue({
+        el: '#l-app'
+    })
+</script>
+</body>
+</html>
