@@ -23,39 +23,44 @@ public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
 
-    @Role({"1","2","3","4"})
+    @Role({"1", "2", "3", "4"})
     @RequestMapping(value = "/api/schedules/leave", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public JsonResponse insertLeave(@RequestBody Schedule schedule) {
         scheduleService.insertLeave(schedule);
         return new JsonResponse(null);
     }
-    @Role({"1","2","3","4"})
+
+    @Role({"1", "2", "3", "4"})
     @RequestMapping(value = "/api/schedules/buzz", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public JsonResponse insertBusinessTrip(@RequestBody Schedule schedule) {
         scheduleService.insertBuzz(schedule);
         return new JsonResponse(null);
     }
-    @Role({"1","2","3"})
+
+    @Role({"1", "2", "3"})
     @RequestMapping(value = "/api/schedules/{id}", method = RequestMethod.DELETE, produces = "application/json")
     @ResponseBody
     public JsonResponse deleteSchedule(@PathVariable long id) {
         scheduleService.deleteSchedule(id);
         return new JsonResponse(null);
     }
-    @Role({"1","2","3"})
+
+    @Role({"1", "2", "3"})
     @RequestMapping(value = "/api/schedules/accept/{id}", method = RequestMethod.PUT, produces = "application/json")
     @ResponseBody
     public JsonResponse acceptSchedule(@PathVariable long id) {
         scheduleService.acceptSchedule(id);
         return new JsonResponse(null);
     }
-    @Role({"1","2","3"})
-    @RequestMapping(value = "/api/schedules/reject/{id}", method = RequestMethod.PUT, produces = "application/json")
+
+    @Role({"1", "2", "3"})
+    @RequestMapping(value = "/api/schedules/reject/{id}/{rejectReason}", method = RequestMethod.PUT, produces = "application/json")
     @ResponseBody
-    public JsonResponse rejectSchedule(@PathVariable long id) {
-        scheduleService.rejectSchedule(id);
+    public JsonResponse rejectSchedule(@PathVariable long id, @PathVariable String rejectReason) {
+        System.out.println("---58---: " + rejectReason);
+        scheduleService.rejectScheduleNew(id, rejectReason);
         return new JsonResponse(null);
     }
 
@@ -79,6 +84,7 @@ public class ScheduleController {
         }
         return "leave";
     }
+
     @RequestMapping("/buzz")
     public String buzz(ModelMap modelMap, HttpServletRequest request) {
         UserVO userVO = (UserVO) request.getAttribute("userInfo");
@@ -99,6 +105,7 @@ public class ScheduleController {
         }
         return "business_trip";
     }
+
     @RequestMapping("/leave/update")
     public String updateEmployee(@RequestParam long leaveId, ModelMap modelMap) {
         Schedule s = scheduleService.get(leaveId);

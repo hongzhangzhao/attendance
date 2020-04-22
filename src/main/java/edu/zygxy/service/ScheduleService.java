@@ -27,5 +27,7 @@ public interface ScheduleService {
 
     void rejectSchedule(long id);
 
+    void rejectScheduleNew(long id, String rejectReason);
+
     Schedule get(long id);
 }

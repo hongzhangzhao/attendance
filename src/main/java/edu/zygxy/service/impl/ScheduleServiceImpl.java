@@ -69,6 +69,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    public void rejectScheduleNew(long id, String rejectReason) {
+        scheduleMapper.updateScheduleStatusNew(id, rejectReason, -1);
+    }
+
+    @Override
     public Schedule get(long id) {
         return scheduleMapper.selectById(id);
     }

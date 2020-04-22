@@ -20,6 +20,7 @@ public class Schedule {
     private String name;
     private Timestamp createTime;
     private Timestamp updateTime;
+    private String rejectReason;
 
     public Long getId() {
         return id;
@@ -123,6 +124,14 @@ public class Schedule {
 
     public void setStatusStr(String statusStr) {
         this.statusStr = statusStr;
+    }
+
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 
     @Override

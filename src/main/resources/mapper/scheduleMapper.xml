@@ -26,6 +26,9 @@
     <update id="updateScheduleStatus">
         UPDATE schedule SET status=#{status} WHERE id=#{id}
     </update>
+    <update id="updateScheduleStatusNew">
+        UPDATE schedule SET status=#{status}, reject_reason=#{rejectReason}  WHERE id=#{id}
+    </update>
     <delete id="deleteSchedule">
         DELETE FROM schedule WHERE id=#{id};
     </delete>

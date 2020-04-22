@@ -36,12 +36,10 @@
         <l-container>
             <l-widget-container title="驳回" icon="icon icon-edit">
                 <l-form>
-                    <l-form-input id="name" type="text" size="10" title="姓名" th:value="${leave.id}"></l-form-input>
-                    <l-form-input id="email" type="email" size="10" title="邮箱" th:value="${leave.type}"></l-form-input>
-
+                    <l-form-input id="reject_reason" type="text" size="10" title="理由" th:value="${leave.rejectReason}"></l-form-input>
                 </l-form>
                 <l-form-btn-container>
-                    <button th:onclick="${'updateUser('+leave.id+')'}" class="btn btn-success">处理</button>
+                    <button th:onclick="${'reject('+leave.id+')'}" class="btn btn-success">处理</button>
                 </l-form-btn-container>
             </l-widget-container>
         </l-container>
@@ -61,9 +59,23 @@
     new Vue({
         el: '#l-app'
     })
-    function updateUser(id) {
 
-
+    function reject(id) {
+        var reject_reason = $("#reject_reason").val();
+        $.ajax({
+            type: "PUT",
+            contentType: "application/json",
+            url: "/api/schedules/reject/" + id + "/" + reject_reason,
+            success: function (result) {
+                var obj = eval(result);
+                if (obj.code == 200) {
+                    alert("申请成功!");
+                    window.location.href = '/leave';
+                } else {
+                    alert(obj.message);
+                }
+            }
+        });
     }
 </script>
 </body>
