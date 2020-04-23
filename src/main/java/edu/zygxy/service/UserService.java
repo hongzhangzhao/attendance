@@ -13,6 +13,8 @@ public interface UserService {
 
     User getUserById(long id);
 
+    User getUserByEmail(String email);
+
     List<User> listUsers();
 
     List<User> listUsersByDepartmentId(long departmentId);

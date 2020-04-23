@@ -3,6 +3,7 @@ package edu.zygxy.web;
 import edu.zygxy.pojo.JsonResponse;
 import edu.zygxy.pojo.User;
 import edu.zygxy.service.AuthService;
+import edu.zygxy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,8 @@ public class AuthController {
 
     @Autowired
     AuthService authService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/login")
     public String loginPage() {
@@ -32,7 +35,9 @@ public class AuthController {
     @ResponseBody
     public JsonResponse login(@RequestBody User user, HttpServletResponse httpServletResponse, HttpSession session) throws Exception {
         if (authService.login(user.getEmail(), user.getPassword(), httpServletResponse)) {
+            User u = userService.getUserByEmail(user.getEmail());
             session.setAttribute("username", user.getEmail());
+            session.setAttribute("roleId", u.getRoleId());
             return new JsonResponse(null);
         } else {
             return new JsonResponse(400, "登录失败，请检查用户名密码");
