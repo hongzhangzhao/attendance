@@ -111,6 +111,7 @@ CREATE TABLE `schedule` (
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL,
   `user_id` int(11) NOT NULL,
+  `reject_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `schedule_id_uindex` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
