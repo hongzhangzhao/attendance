@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * Created by liangjiateng on 2017/4/17.
+ * Created by guofumei on 2019/11/11.
  */
 @Mapper
 public interface DepartmentMapper {

@@ -3,7 +3,7 @@ package edu.zygxy.pojo;
 import java.sql.Timestamp;
 
 /**
- * Created by liangjiateng on 2017/5/4.
+ * Created by guofumei on 2019/11/4.
  */
 public class Schedule {
 

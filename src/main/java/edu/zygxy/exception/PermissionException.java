@@ -1,7 +1,7 @@
 package edu.zygxy.exception;
 
 /**
- * Created by liangjiateng on 2017/5/5.
+ * Created by guofumei on 2019/11/5.
  */
 public class PermissionException extends BaseException {
     public PermissionException() {

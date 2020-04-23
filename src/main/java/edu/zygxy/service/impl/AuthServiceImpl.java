@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by liangjiateng on 2017/5/3.
+ * Created by guofumei on 2019/11/3.
  */
 @Service
 public class AuthServiceImpl implements AuthService {

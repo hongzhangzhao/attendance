@@ -1,7 +1,7 @@
 package edu.zygxy.service;
 
 /**
- * Created by liangjiateng on 2017/5/8.
+ * Created by guofumei on 2019/11/8.
  */
 public interface SystemService {
 

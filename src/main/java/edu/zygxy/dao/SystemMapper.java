@@ -3,7 +3,7 @@ package edu.zygxy.dao;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * Created by liangjiateng on 2017/5/8.
+ * Created by guofumei on 2019/11/8.
  */
 @Mapper
 public interface SystemMapper {

@@ -4,7 +4,7 @@ import edu.zygxy.pojo.Config;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * Created by liangjiateng on 2017/5/3.
+ * Created by guofumei on 2019/11/3.
  */
 @Mapper
 public interface ConfigMapper {

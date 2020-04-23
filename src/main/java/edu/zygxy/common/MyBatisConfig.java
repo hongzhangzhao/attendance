@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * Created by liangjiateng on 2017/4/1.
+ * Created by guofumei on 2019/11/1.
  */
 @Configuration
 public class MyBatisConfig {

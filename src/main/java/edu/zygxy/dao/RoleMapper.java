@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * Created by liangjiateng on 2017/5/2.
+ * Created by guofumei on 2019/11/2.
  */
 @Mapper
 public interface RoleMapper {

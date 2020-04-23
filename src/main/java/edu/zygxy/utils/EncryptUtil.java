@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 import java.security.Security;
 
 /**
- * Created by liangjiateng on 2017/4/17.
+ * Created by guofumei on 2019/11/11.
  */
 public class EncryptUtil {
 

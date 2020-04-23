@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by liangjiateng on 2017/5/8.
+ * Created by guofumei on 2019/11/8.
  */
 @Controller
 public class SystemController {

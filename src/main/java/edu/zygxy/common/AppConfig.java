@@ -3,7 +3,7 @@ package edu.zygxy.common;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by liangjiateng on 2017/4/17.
+ * Created by guofumei on 2019/11/11.
  */
 @Component
 public class AppConfig {

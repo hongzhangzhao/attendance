@@ -5,7 +5,7 @@ import edu.zygxy.pojo.User;
 import java.util.List;
 
 /**
- * Created by liangjiateng on 2017/5/2.
+ * Created by guofumei on 2019/11/2.
  */
 public interface UserService {
 

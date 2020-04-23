@@ -5,7 +5,7 @@ import java.io.StringWriter;
 import java.util.Date;
 
 /**
- * Created by liangjiateng on 2017/4/10.
+ * Created by guofumei on 2019/11/11.
  */
 public class BaseException extends Exception {
 

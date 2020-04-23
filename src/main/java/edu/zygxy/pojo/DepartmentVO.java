@@ -3,7 +3,7 @@ package edu.zygxy.pojo;
 import java.util.List;
 
 /**
- * Created by liangjiateng on 2017/4/19.
+ * Created by guofumei on 2019/11/11.
  */
 public class DepartmentVO {
 
