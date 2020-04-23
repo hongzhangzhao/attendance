@@ -11,6 +11,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -69,7 +71,8 @@ public class HolidayController {
 
         return "work";
     }
-    @Role({"1","2","3","4"})
+
+    @Role({"1", "2", "3", "4"})
     @RequestMapping(value = "/api/work_checks/start", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public JsonResponse startWork(HttpServletRequest request) {
@@ -83,7 +86,8 @@ public class HolidayController {
         }
         return new JsonResponse(404, "今天已经打过卡");
     }
-    @Role({"1","2","3","4"})
+
+    @Role({"1", "2", "3", "4"})
     @RequestMapping(value = "/api/work_checks/end", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public JsonResponse endWork(HttpServletRequest request) {
@@ -104,6 +108,7 @@ public class HolidayController {
         workService.insertHoliday(holiday);
         return new JsonResponse(null);
     }
+
     @Role({"1"})
     @RequestMapping(value = "/api/config", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody

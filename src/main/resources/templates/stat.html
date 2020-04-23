@@ -35,19 +35,19 @@
         <l-router slot="router" href="/index" title="首页" iscurrent="false"></l-router>
         <l-router slot="router" href="/stat" title="数据统计" iscurrent="true"></l-router>
         <l-container>
-
+            <button id="exportBtn" class="btn btn-info " type="button"> 模板下载</button>
             <l-tab-container>
                 <l-tab-nav title="出勤记录" isactive="true" href="#tab1" slot="nav"></l-tab-nav>
                 <l-tab-nav title="请假记录" href="#tab2" slot="nav"></l-tab-nav>
                 <l-tab-nav title="出差记录" href="#tab3" slot="nav"></l-tab-nav>
                 <l-tab-content id="tab1" isactive="true" slot="content">
-                   <l-notification title="通过搜索框来过滤员工" color="green"></l-notification>
+                    <l-notification title="通过搜索框来过滤员工" color="green"></l-notification>
                     <l-widget-container icon="icon icon-th" title="出勤记录">
 
                         <table class="table table-bordered data-table">
                             <thead>
                             <tr>
-                                <th><input type="checkbox"  name="title-table-checkbox"/></th>
+                                <th><input type="checkbox" name="title-table-checkbox"/></th>
                                 <th>日期</th>
                                 <th>姓名</th>
                                 <th>类型</th>
@@ -111,7 +111,7 @@
                         <table class="table table-bordered data-table">
                             <thead>
                             <tr>
-                                <th><input type="checkbox"  name="title-table-checkbox"/></th>
+                                <th><input type="checkbox" name="title-table-checkbox"/></th>
                                 <th>姓名</th>
                                 <th>出差原因</th>
                                 <th>开始时间</th>
@@ -161,6 +161,7 @@
     new Vue({
         el: '#l-app'
     })
+
     function accept1(id) {
         if (confirm("确定要同意申请吗？")) {
             $.ajax({
@@ -279,6 +280,14 @@
             });
         }
 
+    }
+
+    $("#exportBtn").click(function () {
+        exportFile()
+    });
+
+    function exportFile() {
+        window.location.href = "/attendance/export";
     }
 </script>
 </body>
