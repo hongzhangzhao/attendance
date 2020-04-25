@@ -25,15 +25,15 @@
         <l-side-btn th:if="${session.roleId} lt 4" href="/employee" icon="icon icon-group" title="员工管理"></l-side-btn>
         <l-side-btn th:if="${session.roleId} lt 4" href="/department" icon="icon icon-briefcase" title="部门管理"></l-side-btn>
         <l-side-btn href="/work" icon="icon icon-edit" title="考勤管理"></l-side-btn>
-        <l-side-btn th:if="${session.roleId} lt 4" href="/buzz" icon="icon icon-plane" title="出差管理"></l-side-btn>
-        <l-side-btn th:if="${session.roleId} lt 4" href="/leave" icon="icon icon-ambulance" title="请假管理"></l-side-btn>
+        <l-side-btn href="/buzz" icon="icon icon-plane" title="出差管理"></l-side-btn>
+        <l-side-btn href="/leave" icon="icon icon-ambulance" title="请假管理"></l-side-btn>
         <l-side-btn th:if="${session.roleId} lt 4" href="/stat" icon="icon icon-bar-chart" title="数据统计"></l-side-btn>
         <l-side-btn th:if="${session.roleId} lt 4" href="/system" icon="icon icon-cog" title="系统设置"></l-side-btn>
     </l-sidebar>
 
     <l-content>
         <l-router slot="router" href="/index" title="首页" iscurrent="false"></l-router>
-        <l-router slot="router" href="#" title="出差管理" iscurrent="true"></l-router>
+        <l-router slot="router" href="#" title="请假管理" iscurrent="true"></l-router>
         <l-container>
             <l-tab-container>
                 <l-tab-nav title="请假记录" isactive="true" href="#tab1" slot="nav"></l-tab-nav>
@@ -44,6 +44,7 @@
                             <thead>
                             <tr>
                                 <!--<th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"/></th>-->
+                                <th>创建日期</th>
                                 <th>请假原因</th>
                                 <th>开始时间</th>
                                 <th>结束时间</th>
@@ -55,12 +56,14 @@
                             <tbody>
                             <tr th:each="leave:${leaves}">
                                 <!--<td><input name="check" type="checkbox"/></td>-->
+                                <td th:text="${#strings.substring(leave.createTime,0,10)}">2020-01-01</td>
                                 <td th:text="${leave.reason}">生病</td>
                                 <td th:text="${leave.startStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.endStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.statusStr}">已批准</td>
                                 <td  th:if="${leave.status} eq -1" th:text="${leave.rejectReason}">-</td>
                                 <td  th:if="${leave.status} eq 1" >-</td>
+                                <td  th:if="${leave.status} eq 0" >-</td>
                                 <td class="center"><a th:onclick="${'accept('+leave.id+')'}"
                                                       style="margin-left: 10px;cursor:pointer">批准</a>
 <!--                                    <a th:onclick="${'reject('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">不批准</a>-->
@@ -76,10 +79,10 @@
                     <l-widget-container icon="icon icon-cog" title="请假申请">
                         <l-form>
                             <l-form-custom title="开始日期">
-                                <input id="date1" type="text" data-date-format="yyyy-mm-dd" class="datepicker span6"/>
+                                <input id="date1" type="text" data-date-format="yyyy-mm-dd" class="datepicker span6" />
                             </l-form-custom>
                             <l-form-custom title="结束日期">
-                                <input id="date2" type="text" data-date-format="yyyy-mm-dd" class="datepicker span6"/>
+                                <input id="date2" type="text" data-date-format="yyyy-mm-dd" class="datepicker span6" />
                             </l-form-custom>
                             <l-form-input title="请假原因" size="10" type="text" id="reason">
 
@@ -109,6 +112,7 @@
 <script src="lib/js/select2.min.js"></script>
 <script src="lib/js/vue.js"></script>
 <script src="lib/js/component.js"></script>
+<script src="lib/js/date.format.js"></script>
 <script>
     new Vue({
         el: '#l-app'
@@ -124,8 +128,17 @@
         var endDate = $("#date2").val()
         var start = new Date(startDate).getTime();
         var end = new Date(endDate).getTime();
+        var time=new Date().format('Y-m-d');
+        //alert(time)
+        //var time1 = time.getFullYear() + '-' + month + '-' + time.getDate();
+        var t1 = new Date(startDate);
+        //alert(Date.parse(t1))
+        var t2 = new Date(time);
+        var t3 = new Date(endDate);
         if ($("#date1").val() == '' || $("#date2").val() == '' || $("#reason") == '') {
             alert("输入不能为空");
+        }else if(Date.parse(t2) - Date.parse(t1) > 0){
+            alert("开始日期早于申请日期")
         }else if(start>end){
             alert("日期输入错误")
         } else {

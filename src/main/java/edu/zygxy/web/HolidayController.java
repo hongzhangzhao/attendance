@@ -56,13 +56,17 @@ public class HolidayController {
                 }
                 String remark1 = "";
                 String remark2 = "";
+                String remark3 = "";
                 if (workCheck.getStartCheck().getTime() > workCheck.getStart().getTime()) {
                     remark1 = "迟到";
                 }
                 if (workCheck.getEndCheck().getTime() < workCheck.getEnd().getTime()) {
                     remark2 = "早退";
                 }
-                workCheck.setRemark(remark1 + remark2);
+                if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime()) {
+                    remark3 = "加班";
+                }
+                workCheck.setRemark(remark1 + remark2 + remark3);
             }
             modelMap.addAttribute("works", workChecks);
         }

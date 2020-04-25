@@ -49,13 +49,17 @@ public class StatController {
             }
             String remark1 = "";
             String remark2 = "";
+            String remark3 = "";
             if (workCheck.getStartCheck().getTime() > workCheck.getStart().getTime()) {
                 remark1 = "迟到";
             }
             if (workCheck.getEndCheck().getTime() < workCheck.getEnd().getTime()) {
                 remark2 = "早退";
             }
-            workCheck.setRemark(remark1 + remark2);
+            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime()) {
+                remark2 = "加班";
+            }
+            workCheck.setRemark(remark1 + remark2 + remark3);
             if (userService.getUserById(workCheck.getUserId()) != null)
                 workCheck.setName(userService.getUserById(workCheck.getUserId()).getName());
         }
