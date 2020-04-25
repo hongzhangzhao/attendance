@@ -143,7 +143,7 @@ public class StatController {
         }
         String r = String.join("\n", list);
         String path = "C:\\tmp\\xxx.csv";
-        FileUtils.write(new File(path), r, "utf-8");
+        FileUtils.write(new File(path), r, "gbk");
 
         File file = new File(path);
         if (file.exists()) {
