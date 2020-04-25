@@ -6,11 +6,16 @@ import edu.zygxy.pojo.Role;
 import edu.zygxy.service.DepartmentService;
 import edu.zygxy.service.RoleService;
 import edu.zygxy.service.UserService;
+import edu.zygxy.utils.EncryptUtil;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +33,26 @@ public class UserController {
     private DepartmentService departmentService;
 
     @RequestMapping("/employee")
-    public String employee(@RequestParam(defaultValue = "0") long departmentId, ModelMap modelMap) {
+    public String employee(@RequestParam(defaultValue = "0") long departmentId, ModelMap modelMap, HttpServletRequest request) throws Exception {
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    String token = cookie.getValue();
+                    if (token != null && !"".equals(token)) {
+                        EncryptUtil encryptUtil = new EncryptUtil("token");
+                        String str = encryptUtil.decrypt(token);
+                        JSONObject jsonObject = new JSONObject(str);
+                        long userId = jsonObject.getLong("id");
+                        User u = userService.getUserById(userId);
+                        if (u.getDepartmentId() != 1) {
+                            departmentId = u.getDepartmentId();
+                        }
+                    }
+                }
+            }
+        }
         List<User> users;
         if (departmentId != 0) {
             users = userService.listUsersByDepartmentId(departmentId);
