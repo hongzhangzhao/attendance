@@ -47,7 +47,7 @@
                         <table class="table table-bordered data-table">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" name="title-table-checkbox"/></th>
+                                <!--<th><input type="checkbox" name="title-table-checkbox"/></th>-->
                                 <th>日期</th>
                                 <th>姓名</th>
                                 <th>类型</th>
@@ -59,9 +59,9 @@
                             </thead>
                             <tbody>
                             <tr th:each="work:${works}">
-                                <td><input name="check" type="checkbox"/></td>
-                                <td th:text="${work.timeStr}">2017-03-28</td>
-                                <td th:text="${work.name}">梁嘉腾</td>
+                                <!--<td><input name="check" type="checkbox"/></td>-->
+                                <td th:text="${work.timeStr}">2020-01-01</td>
+                                <td th:text="${work.name}">XXX</td>
                                 <td th:text="${work.typeStr}">正常出勤</td>
                                 <td th:text="${work.startCheckStr}">09：00</td>
                                 <td th:text="${work.endCheckStr}">18：00</td>
@@ -89,11 +89,11 @@
                             </thead>
                             <tbody>
                             <tr th:each="leave:${leaves}">
-                                <td><input name="check" type="checkbox"/></td>
+                                <!--<td><input name="check" type="checkbox"/></td>-->
                                 <th th:text="${leave.name}">姓名</th>
                                 <td th:text="${leave.reason}">生病</td>
-                                <td th:text="${leave.startStr}">2017-05-11 09：00</td>
-                                <td th:text="${leave.endStr}">2017-05-11 09：00</td>
+                                <td th:text="${leave.startStr}">2020-01-01 09：00</td>
+                                <td th:text="${leave.endStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.statusStr}">已批准</td>
                                 <td class="center"><a th:onclick="${'accept1('+leave.id+')'}"
                                                       style="margin-left: 10px;cursor:pointer">批准</a><a
@@ -111,7 +111,7 @@
                         <table class="table table-bordered data-table">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" name="title-table-checkbox"/></th>
+                                <!--<th><input type="checkbox" name="title-table-checkbox"/></th>-->
                                 <th>姓名</th>
                                 <th>出差原因</th>
                                 <th>开始时间</th>
@@ -122,11 +122,11 @@
                             </thead>
                             <tbody>
                             <tr th:each="leave:${buzzs}">
-                                <td><input name="check" type="checkbox"/></td>
+                                <!--<td><input name="check" type="checkbox"/></td>-->
                                 <th th:text="${leave.name}">姓名</th>
                                 <td th:text="${leave.reason}">生病</td>
-                                <td th:text="${leave.startStr}">2017-05-11 09：00</td>
-                                <td th:text="${leave.endStr}">2017-05-11 09：00</td>
+                                <td th:text="${leave.startStr}">2020-01-01 09：00</td>
+                                <td th:text="${leave.endStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.statusStr}">已批准</td>
                                 <td class="center"><a th:onclick="${'accept2('+leave.id+')'}"
                                                       style="margin-left: 10px;cursor:pointer">批准</a><a

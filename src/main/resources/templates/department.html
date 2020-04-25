@@ -45,7 +45,7 @@
                 <table class="table table-bordered data-table">
                     <thead>
                     <tr>
-                        <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
+                        <!--<th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>-->
                         <th>部门号</th>
                         <th>部门名称</th>
                         <th>部门描述</th>
@@ -56,7 +56,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="department:${departments}">
-                        <td><input name="check" type="checkbox"/></td>
+                        <!--<td><input name="check" type="checkbox"/></td>-->
                         <td th:text="${department.id}"></td>
                         <td th:text="${department.name}"></td>
                         <td th:text="${department.workDesc}"></td>

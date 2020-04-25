@@ -57,7 +57,7 @@
                         <table class="table table-bordered data-table">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"/></th>
+                                <!--<th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"/></th>-->
                                 <th>日期</th>
                                 <th>类型</th>
                                 <th>上班时间</th>
@@ -68,8 +68,8 @@
                             </thead>
                             <tbody>
                             <tr th:each="work:${works}">
-                                <td><input name="check" type="checkbox"/></td>
-                                <td th:text="${work.timeStr}">2017-03-28</td>
+                                <!--<td><input name="check" type="checkbox"/></td>-->
+                                <td th:text="${work.timeStr}">2020-01-01</td>
                                 <td th:text="${work.typeStr}">正常出勤</td>
                                 <td th:text="${work.startCheckStr}">09：00</td>
                                 <td th:text="${work.endCheckStr}">18：00</td>
@@ -99,7 +99,7 @@
                         <table class="table table-bordered data-table">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" name="title-table-checkbox"/></th>
+                                <!--<th><input type="checkbox" name="title-table-checkbox"/></th>-->
                                 <th>日期</th>
                                 <th>备注</th>
                                 <th>操作</th>
@@ -107,8 +107,8 @@
                             </thead>
                             <tbody>
                             <tr th:each="h:${holidays}">
-                                <td><input name="check" type="checkbox"/></td>
-                                <td th:text="${h.timeStr}">2017-03-28</td>
+                                <!--<td><input name="check" type="checkbox"/></td>-->
+                                <td th:text="${h.timeStr}">2020-01-01</td>
                                 <td th:text="${h.remark}">五一节</td>
                                 <td class="center"><a th:onclick="${'deleteHoliday('+h.id+')'}"
                                                       style="margin-left: 10px;cursor:pointer">删除假期</a></td>

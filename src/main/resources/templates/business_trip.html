@@ -43,7 +43,7 @@
                         <table class="table table-bordered data-table">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"/></th>
+                                <!--<th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"/></th>-->
                                 <th>出差原因</th>
                                 <th>开始时间</th>
                                 <th>结束时间</th>
@@ -53,10 +53,10 @@
                             </thead>
                             <tbody>
                             <tr th:each="leave:${buzzs}">
-                                <td><input name="check" type="checkbox"/></td>
+                                <!--<td><input name="check" type="checkbox"/></td>-->
                                 <td th:text="${leave.reason}">生病</td>
-                                <td th:text="${leave.startStr}">2017-05-11 09：00</td>
-                                <td th:text="${leave.endStr}">2017-05-11 09：00</td>
+                                <td th:text="${leave.startStr}">2020-01-01 09：00</td>
+                                <td th:text="${leave.endStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.statusStr}">已批准</td>
                                 <td class="center"><a th:onclick="${'accept('+leave.id+')'}"
                                                       style="margin-left: 10px;cursor:pointer">批准</a>
