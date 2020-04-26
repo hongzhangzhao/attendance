@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
@@ -183,5 +185,54 @@ public class StatController {
         }
 
         return null;
+    }
+
+    @RequestMapping("/stat/work")
+    public String statWork(HttpServletRequest request, ModelMap modelMap) {
+        Map<String, StatWork> statWorkMap = new HashMap<>();
+        List<WorkCheckNew> workChecks = workService.getAll();
+        for (WorkCheckNew workCheck : workChecks) {
+            String timex = DateUtil.longToString2(workCheck.getTime().getTime());
+            String name = workCheck.getName();
+            String logo = timex + name;
+            StatWork sw = null;
+            if (statWorkMap.containsKey(logo)) {
+                sw = statWorkMap.get(logo);
+            } else {
+                sw = new StatWork();
+                sw.setTime(timex);
+                sw.setName(name);
+            }
+            Integer sType = workCheck.getScheduleType();
+            if (sType != null) {
+                if (sType == 1) {
+                    if (workCheck.getStatus() == 1) {
+                        sw.setBusinessDay(sw.getBusinessDay() + 1);
+                    }
+                } else {
+                    if (workCheck.getStatus() == 1) {
+                        sw.setLeaveDay(sw.getLeaveDay() + 1);
+                    }
+                }
+            }
+            if (workCheck.getStartCheck().getTime() > workCheck.getStart().getTime()) {
+                sw.setLateDay(sw.getLateDay() + 1);  // 迟到
+            }
+            if (workCheck.getEndCheck().getTime() < workCheck.getEnd().getTime()) {
+                sw.setEarlyDay(sw.getEarlyDay() + 1);  // 早退
+            }
+            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime()) {
+                sw.setOvertimeDay(sw.getOvertimeDay() + 1);  // 加班
+            }
+            statWorkMap.put(logo, sw);
+        }
+        List<StatWork> list = new ArrayList<>();
+        for (String key : statWorkMap.keySet()) {
+            StatWork item = statWorkMap.get(key);
+            list.add(item);
+        }
+        modelMap.addAttribute("statworks", list);
+
+        return "stat_work";
     }
 }

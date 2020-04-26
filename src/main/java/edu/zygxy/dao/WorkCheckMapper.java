@@ -1,6 +1,7 @@
 package edu.zygxy.dao;
 
 import edu.zygxy.pojo.WorkCheck;
+import edu.zygxy.pojo.WorkCheckNew;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,6 +20,8 @@ public interface WorkCheckMapper {
     List<WorkCheck> listWorkChecksByUserId(long userId);
 
     List<WorkCheck> listWorkChecks();
+
+    List<WorkCheckNew> getAll();
 
     WorkCheck getWorkCheckByUserIdAndTime(long userId);
 }
