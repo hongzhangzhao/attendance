@@ -42,10 +42,17 @@
         SELECT * FROM work_check WHERE user_id=#{userId} AND time=DATE_FORMAT(now(),'%Y-%m-%d');
     </select>
 
+    <!--
     <select id="getAll" resultType="edu.zygxy.pojo.WorkCheckNew">
         SELECT w.*, u.name, s.status, s.type as schedule_type
         FROM work_check as w
         left join  user as u on w.user_id = u.id
         left join schedule as s on w.user_id = s.user_id
+    </select>
+    -->
+    <select id="getAll" resultType="edu.zygxy.pojo.WorkCheckNew">
+        SELECT w.*, u.name
+        FROM work_check as w
+        left join  user as u on w.user_id = u.id
     </select>
 </mapper>

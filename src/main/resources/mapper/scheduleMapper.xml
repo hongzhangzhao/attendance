@@ -35,4 +35,9 @@
     <select id="selectById" resultType="edu.zygxy.pojo.Schedule">
         SELECT * FROM schedule WHERE id=#{id};
     </select>
+
+    <select id="selectByDate" resultType="edu.zygxy.pojo.Schedule">
+        select  *  from schedule
+        where  date_format( create_time, '%Y-%m' ) = #{createTime} and user_id = #{userId}
+    </select>
 </mapper>

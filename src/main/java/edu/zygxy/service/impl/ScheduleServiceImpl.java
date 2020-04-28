@@ -77,4 +77,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Schedule get(long id) {
         return scheduleMapper.selectById(id);
     }
+
+    @Override
+    public List<Schedule> selectByDate(String createTime, long userId) {
+        return scheduleMapper.selectByDate(createTime, userId);
+    }
 }

@@ -2,6 +2,8 @@ package edu.zygxy.pojo;
 
 public class StatWork {
 
+    private long id;
+
     private String time;  // 日期 yy-mm-dd
 
     private String name;  // 姓名

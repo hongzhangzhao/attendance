@@ -25,4 +25,6 @@ public interface ScheduleMapper {
     int updateScheduleStatusNew(@Param("id") long id, @Param("rejectReason") String rejectReason, @Param("status") int status);
 
     Schedule selectById(long id);
+
+    List<Schedule> selectByDate(@Param("createTime") String createTime, @Param("userId") long userId);
 }

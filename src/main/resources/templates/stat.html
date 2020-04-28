@@ -41,7 +41,7 @@
                 <l-tab-nav title="出差记录" href="#tab3" slot="nav"></l-tab-nav>
                 <l-tab-content id="tab1" isactive="true" slot="content">
                     <l-notification title="通过搜索框来过滤员工" color="green"></l-notification>
-                    <button id="exportBtn" class="btn btn-info " type="button"> 导出报表</button>
+                    <button id="exportBtn" class="btn btn-info " type="button"> 出勤统计导出报表</button> <button id="monthBtn" class="btn btn-info " type="button"> 月出勤统计导出报表</button>
                     <l-widget-container icon="icon icon-th" title="出勤记录">
 
                         <table class="table table-bordered data-table">
@@ -288,6 +288,13 @@
 
     function exportFile() {
         window.location.href = "/attendance/export";
+    }
+    $("#monthBtn").click(function () {
+        monthFile()
+    });
+
+    function monthFile() {
+        window.location.href = "/stat/work";
     }
 </script>
 </body>

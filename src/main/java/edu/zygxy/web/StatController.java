@@ -144,7 +144,7 @@ public class StatController {
             }
         }
         String r = String.join("\n", list);
-        String path = "C:\\tmp\\xxx.csv";
+        String path = "C:\\tmp\\attendanceStat.csv";
         FileUtils.write(new File(path), r, "gbk");
 
         File file = new File(path);
@@ -188,7 +188,7 @@ public class StatController {
     }
 
     @RequestMapping("/stat/work")
-    public String statWork(HttpServletRequest request, ModelMap modelMap) {
+    public String statWork(HttpServletResponse response) throws IOException {
         Map<String, StatWork> statWorkMap = new HashMap<>();
         List<WorkCheckNew> workChecks = workService.getAll();
         for (WorkCheckNew workCheck : workChecks) {
@@ -198,20 +198,27 @@ public class StatController {
             StatWork sw = null;
             if (statWorkMap.containsKey(logo)) {
                 sw = statWorkMap.get(logo);
+                sw.setWorkDay(sw.getWorkDay() + 1);
             } else {
                 sw = new StatWork();
                 sw.setTime(timex);
                 sw.setName(name);
+                sw.setWorkDay(1);
             }
-            Integer sType = workCheck.getScheduleType();
-            if (sType != null) {
-                if (sType == 1) {
-                    if (workCheck.getStatus() == 1) {
-                        sw.setBusinessDay(sw.getBusinessDay() + 1);
-                    }
-                } else {
-                    if (workCheck.getStatus() == 1) {
-                        sw.setLeaveDay(sw.getLeaveDay() + 1);
+            List<Schedule> sdList = scheduleService.selectByDate(timex, workCheck.getUserId());
+            if (sdList != null && !sdList.isEmpty()) {
+                for (Schedule sdItem : sdList) {
+                    Integer sType = sdItem.getType();
+                    if (sType != null) {
+                        if (sType == 1) {
+                            if (workCheck.getStatus() == 1) {
+                                sw.setBusinessDay(sw.getBusinessDay() + 1);
+                            }
+                        } else {
+                            if (workCheck.getStatus() == 1) {
+                                sw.setLeaveDay(sw.getLeaveDay() + 1);
+                            }
+                        }
                     }
                 }
             }
@@ -231,8 +238,56 @@ public class StatController {
             StatWork item = statWorkMap.get(key);
             list.add(item);
         }
-        modelMap.addAttribute("statworks", list);
+        List<String> resultList = new ArrayList<>();
+        String tou = "日期,姓名,出勤次数,请假次数,出差次数,加班次数,迟到次数,早退次数";
+        resultList.add(tou);
+        for (StatWork b : list) {
+            String row = b.getTime() + "," +
+                    b.getName() + "," + b.getWorkDay() + "," +
+                    b.getLeaveDay() + "," + b.getBusinessDay() + "," +
+                    b.getOvertimeDay() + "," + b.getLateDay() + "," + b.getEarlyDay();
+            resultList.add(row);
+        }
+        String r = String.join("\n", resultList);
+        String path = "C:\\tmp\\monthlyStat.csv";
+        FileUtils.write(new File(path), r, "gbk");
+        File file = new File(path);
+        if (file.exists()) {
+            response.setContentType("application/force-download");  // 设置强制下载不打开
+            response.addHeader("Content-Disposition", "attachment;fileName=" + file.getName());  // 设置文件名
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            try {
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                OutputStream os = response.getOutputStream();
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer, 0, i);
+                    i = bis.read(buffer);
+                }
+                System.out.println("success");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
 
-        return "stat_work";
+        return null;
     }
 }
