@@ -16,6 +16,8 @@ public class StatWork {
 
     private int overtimeDay;  // 加班
 
+    private int overtime;
+
     private int lateDay;  // 迟到
 
     private int earlyDay;  // 早退
@@ -82,5 +84,21 @@ public class StatWork {
 
     public void setEarlyDay(int earlyDay) {
         this.earlyDay = earlyDay;
+    }
+
+    public int getOvertime() {
+        return overtime;
+    }
+
+    public void setOvertime(int overtime) {
+        this.overtime = overtime;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

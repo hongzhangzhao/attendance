@@ -63,7 +63,7 @@ public class HolidayController {
                 if (workCheck.getEndCheck().getTime() < workCheck.getEnd().getTime()) {
                     remark2 = "早退";
                 }
-                if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime()) {
+                if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime() && workCheck.getWorkTime() >= 10) {
                     remark3 = "加班";
                 }
                 workCheck.setRemark(remark1 + remark2 + remark3);

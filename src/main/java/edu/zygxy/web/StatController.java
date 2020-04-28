@@ -58,8 +58,8 @@ public class StatController {
             if (workCheck.getEndCheck().getTime() < workCheck.getEnd().getTime()) {
                 remark2 = "早退";
             }
-            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime()) {
-                remark2 = "加班";
+            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime() && workCheck.getWorkTime() >= 10) {
+                remark3 = "加班";
             }
             workCheck.setRemark(remark1 + remark2 + remark3);
             if (userService.getUserById(workCheck.getUserId()) != null)
@@ -192,7 +192,7 @@ public class StatController {
         Map<String, StatWork> statWorkMap = new HashMap<>();
         List<WorkCheckNew> workChecks = workService.getAll();
         for (WorkCheckNew workCheck : workChecks) {
-            String timex = DateUtil.longToString2(workCheck.getTime().getTime());
+            String timex = DateUtil.longToString3(workCheck.getTime().getTime());
             String name = workCheck.getName();
             String logo = timex + name;
             StatWork sw = null;
@@ -211,11 +211,11 @@ public class StatController {
                     Integer sType = sdItem.getType();
                     if (sType != null) {
                         if (sType == 1) {
-                            if (workCheck.getStatus() == 1) {
+                            if (sdItem.getStatus() == 1) {
                                 sw.setBusinessDay(sw.getBusinessDay() + 1);
                             }
                         } else {
-                            if (workCheck.getStatus() == 1) {
+                            if (sdItem.getStatus() == 1) {
                                 sw.setLeaveDay(sw.getLeaveDay() + 1);
                             }
                         }
@@ -228,8 +228,9 @@ public class StatController {
             if (workCheck.getEndCheck().getTime() < workCheck.getEnd().getTime()) {
                 sw.setEarlyDay(sw.getEarlyDay() + 1);  // 早退
             }
-            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime()) {
+            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime() && workCheck.getWorkTime() >= 10) {
                 sw.setOvertimeDay(sw.getOvertimeDay() + 1);  // 加班
+                sw.setOvertime(sw.getOvertime() + workCheck.getWorkTime() - 9);
             }
             statWorkMap.put(logo, sw);
         }
@@ -239,13 +240,13 @@ public class StatController {
             list.add(item);
         }
         List<String> resultList = new ArrayList<>();
-        String tou = "日期,姓名,出勤次数,请假次数,出差次数,加班次数,迟到次数,早退次数";
+        String tou = "日期,姓名,出勤次数,请假次数,出差次数,加班次数,加班时长,迟到次数,早退次数";
         resultList.add(tou);
         for (StatWork b : list) {
             String row = b.getTime() + "," +
                     b.getName() + "," + b.getWorkDay() + "," +
                     b.getLeaveDay() + "," + b.getBusinessDay() + "," +
-                    b.getOvertimeDay() + "," + b.getLateDay() + "," + b.getEarlyDay();
+                    b.getOvertimeDay() + "," + b.getOvertime() + "," + b.getLateDay() + "," + b.getEarlyDay();
             resultList.add(row);
         }
         String r = String.join("\n", resultList);
