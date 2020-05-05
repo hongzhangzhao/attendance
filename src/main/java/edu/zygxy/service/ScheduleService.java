@@ -30,4 +30,6 @@ public interface ScheduleService {
     void rejectScheduleNew(long id, String rejectReason);
 
     Schedule get(long id);
+
+    List<Schedule> selectByDate(String createTime, long userId);
 }

@@ -4,10 +4,7 @@ import edu.zygxy.dao.ConfigMapper;
 import edu.zygxy.dao.HolidayMapper;
 import edu.zygxy.dao.ScheduleMapper;
 import edu.zygxy.dao.WorkCheckMapper;
-import edu.zygxy.pojo.Config;
-import edu.zygxy.pojo.Holiday;
-import edu.zygxy.pojo.Schedule;
-import edu.zygxy.pojo.WorkCheck;
+import edu.zygxy.pojo.*;
 import edu.zygxy.service.WorkService;
 import edu.zygxy.utils.DateUtil;
 import org.apache.ibatis.annotations.Param;
@@ -119,5 +116,10 @@ public class WorkServiceImpl implements WorkService {
     @Override
     public List<WorkCheck> listWorkChecks() {
         return workCheckMapper.listWorkChecks();
+    }
+
+    @Override
+    public List<WorkCheckNew> getAll() {
+        return workCheckMapper.getAll();
     }
 }

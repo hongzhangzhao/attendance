@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
@@ -56,8 +58,8 @@ public class StatController {
             if (workCheck.getEndCheck().getTime() < workCheck.getEnd().getTime()) {
                 remark2 = "早退";
             }
-            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime()) {
-                remark2 = "加班";
+            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime() && workCheck.getWorkTime() >= 10) {
+                remark3 = "加班";
             }
             workCheck.setRemark(remark1 + remark2 + remark3);
             if (userService.getUserById(workCheck.getUserId()) != null)
@@ -146,9 +148,114 @@ public class StatController {
             }
         }
         String r = String.join("\n", list);
-        String path = "C:\\tmp\\xxx.csv";
+        String path = "C:\\tmp\\attendanceStat.csv";
         FileUtils.write(new File(path), r, "gbk");
 
+        File file = new File(path);
+        if (file.exists()) {
+            response.setContentType("application/force-download");  // 设置强制下载不打开
+            response.addHeader("Content-Disposition", "attachment;fileName=" + file.getName());  // 设置文件名
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            try {
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                OutputStream os = response.getOutputStream();
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer, 0, i);
+                    i = bis.read(buffer);
+                }
+                System.out.println("success");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    @RequestMapping("/stat/work")
+    public String statWork(HttpServletResponse response) throws IOException {
+        Map<String, StatWork> statWorkMap = new HashMap<>();
+        List<WorkCheckNew> workChecks = workService.getAll();
+        for (WorkCheckNew workCheck : workChecks) {
+            String timex = DateUtil.longToString3(workCheck.getTime().getTime());
+            String name = workCheck.getName();
+            String logo = timex + name;
+            StatWork sw = null;
+            if (statWorkMap.containsKey(logo)) {
+                sw = statWorkMap.get(logo);
+                sw.setWorkDay(sw.getWorkDay() + 1);
+            } else {
+                sw = new StatWork();
+                sw.setTime(timex);
+                sw.setName(name);
+                sw.setWorkDay(1);
+            }
+            List<Schedule> sdList = scheduleService.selectByDate(timex, workCheck.getUserId());
+            if (sdList != null && !sdList.isEmpty()) {
+                for (Schedule sdItem : sdList) {
+                    Integer sType = sdItem.getType();
+                    if (sType != null) {
+                        if (sType == 1) {
+                            if (sdItem.getStatus() == 1) {
+                                sw.setBusinessDay(sw.getBusinessDay() + 1);
+                            }
+                        } else {
+                            if (sdItem.getStatus() == 1) {
+                                sw.setLeaveDay(sw.getLeaveDay() + 1);
+                            }
+                        }
+                    }
+                }
+            }
+            if (workCheck.getStartCheck().getTime() > workCheck.getStart().getTime()) {
+                sw.setLateDay(sw.getLateDay() + 1);  // 迟到
+            }
+            if (workCheck.getEndCheck().getTime() < workCheck.getEnd().getTime()) {
+                sw.setEarlyDay(sw.getEarlyDay() + 1);  // 早退
+            }
+            if (workCheck.getEndCheck().getTime() > workCheck.getEnd().getTime() && workCheck.getWorkTime() >= 10) {
+                sw.setOvertimeDay(sw.getOvertimeDay() + 1);  // 加班
+                sw.setOvertime(sw.getOvertime() + workCheck.getWorkTime() - 9);
+            }
+            statWorkMap.put(logo, sw);
+        }
+        List<StatWork> list = new ArrayList<>();
+        for (String key : statWorkMap.keySet()) {
+            StatWork item = statWorkMap.get(key);
+            list.add(item);
+        }
+        List<String> resultList = new ArrayList<>();
+        String tou = "日期,姓名,出勤次数,请假次数,出差次数,加班次数,加班时长,迟到次数,早退次数";
+        resultList.add(tou);
+        for (StatWork b : list) {
+            String row = b.getTime() + "," +
+                    b.getName() + "," + b.getWorkDay() + "," +
+                    b.getLeaveDay() + "," + b.getBusinessDay() + "," +
+                    b.getOvertimeDay() + "," + b.getOvertime() + "," + b.getLateDay() + "," + b.getEarlyDay();
+            resultList.add(row);
+        }
+        String r = String.join("\n", resultList);
+        String path = "C:\\tmp\\monthlyStat.csv";
+        FileUtils.write(new File(path), r, "gbk");
         File file = new File(path);
         if (file.exists()) {
             response.setContentType("application/force-download");  // 设置强制下载不打开

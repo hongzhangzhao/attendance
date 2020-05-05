@@ -88,6 +88,16 @@ public class DateUtil {
         return dateToString2(date);
     }
 
+    public static String dateToString3(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+        String dateStr = dateFormat.format(date).toString();
+        return dateStr;
+    }
+    public static String longToString3(long time) {
+        Date date = new Date(time);
+        return dateToString3(date);
+    }
+
 
 
     /**

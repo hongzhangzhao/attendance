@@ -3,6 +3,7 @@ package edu.zygxy.service;
 import edu.zygxy.pojo.Config;
 import edu.zygxy.pojo.Holiday;
 import edu.zygxy.pojo.WorkCheck;
+import edu.zygxy.pojo.WorkCheckNew;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface WorkService {
     List<WorkCheck> listWorkChecksByUserId(long userId);
 
     List<WorkCheck> listWorkChecks();
+
+    List<WorkCheckNew> getAll();
 }
