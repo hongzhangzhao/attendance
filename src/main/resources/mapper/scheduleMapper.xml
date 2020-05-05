@@ -16,11 +16,11 @@
     </insert>
 
     <select id="listSchedulesByUserIdAndType" resultType="edu.zygxy.pojo.Schedule">
-        SELECT * FROM schedule WHERE user_id=#{userId} AND type=#{type} ORDER BY create_time DESC ;
+        SELECT * FROM schedule WHERE user_id=#{userId} AND type=#{type} ORDER BY create_time ASC ;
     </select>
 
     <select id="listShcedulesByType" resultType="edu.zygxy.pojo.Schedule">
-        SELECT * FROM schedule WHERE type=#{type} ORDER BY create_time DESC ;
+        SELECT * FROM schedule WHERE type=#{type} ORDER BY create_time ASC ;
     </select>
 
     <update id="updateScheduleStatus">

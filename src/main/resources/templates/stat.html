@@ -84,6 +84,7 @@
                                 <th>开始时间</th>
                                 <th>结束时间</th>
                                 <th>状态</th>
+                                <th>驳回理由</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -95,10 +96,13 @@
                                 <td th:text="${leave.startStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.endStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.statusStr}">已批准</td>
-                                <td class="center"><a th:onclick="${'accept1('+leave.id+')'}"
-                                                      style="margin-left: 10px;cursor:pointer">批准</a><a
-                                        th:onclick="${'reject1('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">不批准</a><a
-                                        th:onclick="${'delete1('+leave.id+')'}"
+                                <td  th:if="${leave.status} eq -1" th:text="${leave.rejectReason}">-</td>
+                                <td  th:if="${leave.status} eq 1" >-</td>
+                                <td  th:if="${leave.status} eq 0" >-</td>
+                                <td class="center"><a th:onclick="${'accept('+leave.id+')'}"
+                                                      style="margin-left: 10px;cursor:pointer">批准</a>
+                                    <a th:href="@{/leave/update(leaveId=${leave.id})}">不批准</a>
+                                    <a th:onclick="${'delete1('+leave.id+')'}"
                                         style="margin-left: 10px;cursor:pointer">删除申请</a></td>
                             </tr>
                             </tbody>
