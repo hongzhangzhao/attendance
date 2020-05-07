@@ -50,11 +50,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<Schedule> listLeavesNew(long roleId) {
+        if (roleId == 2) {
+            return scheduleMapper.listShcedulesByType(0);
+        }
         return scheduleMapper.listShcedulesByTypeNew(0, roleId);
     }
 
     @Override
     public List<Schedule> listBuzzsNew(long roleId) {
+        if (roleId == 2) {
+            return scheduleMapper.listShcedulesByType(1);
+        }
         return scheduleMapper.listShcedulesByTypeNew(1, roleId);
     }
 
