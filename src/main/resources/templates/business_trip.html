@@ -23,7 +23,8 @@
     <l-sidebar>
         <l-side-btn href="/index" icon="icon icon-home" title="首页"></l-side-btn>
         <l-side-btn th:if="${session.roleId} lt 4" href="/employee" icon="icon icon-group" title="员工管理"></l-side-btn>
-        <l-side-btn th:if="${session.roleId} lt 4" href="/department" icon="icon icon-briefcase" title="部门管理"></l-side-btn>
+        <l-side-btn th:if="${session.roleId} lt 4" href="/department" icon="icon icon-briefcase"
+                    title="部门管理"></l-side-btn>
         <l-side-btn href="/work" icon="icon icon-edit" title="考勤管理"></l-side-btn>
         <l-side-btn href="/buzz" icon="icon icon-plane" title="出差管理"></l-side-btn>
         <l-side-btn href="/leave" icon="icon icon-ambulance" title="请假管理"></l-side-btn>
@@ -61,14 +62,15 @@
                                 <td th:text="${leave.startStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.endStr}">2020-01-01 09：00</td>
                                 <td th:text="${leave.statusStr}">已批准</td>
-                                <td  th:if="${leave.status} eq -1" th:text="${leave.rejectReason}">-</td>
-                                <td  th:if="${leave.status} eq 1" >-</td>
-                                <td  th:if="${leave.status} eq 0" >-</td>
+                                <td th:if="${leave.status} eq -1" th:text="${leave.rejectReason}">-</td>
+                                <td th:if="${leave.status} eq 1">-</td>
+                                <td th:if="${leave.status} eq 0">-</td>
                                 <td class="center"><a th:onclick="${'accept('+leave.id+')'}"
                                                       style="margin-left: 10px;cursor:pointer">批准</a>
-<!--                                    <a th:onclick="${'reject('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">不批准</a>-->
+                                    <!--                                    <a th:onclick="${'reject('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">不批准</a>-->
                                     <a th:href="@{/leave/update/new(leaveId=${leave.id})}">不批准</a>
-                                    <a th:onclick="${'delete1('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">删除申请</a></td>
+                                    <a th:onclick="${'delete1('+leave.id+')'}" style="margin-left: 10px;cursor:pointer">删除申请</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -128,7 +130,7 @@
         var endDate = $("#date2").val()
         var start = new Date(startDate).getTime();
         var end = new Date(endDate).getTime();
-        var time=new Date().format('Y-m-d');
+        var time = new Date().format('Y-m-d');
         //alert(time)
         //var time1 = time.getFullYear() + '-' + month + '-' + time.getDate();
         var t1 = new Date(startDate);
@@ -137,9 +139,9 @@
         var t3 = new Date(endDate);
         if ($("#date1").val() == '' || $("#date2").val() == '' || $("#reason") == '') {
             alert("输入不能为空");
-        }else if(Date.parse(t2) - Date.parse(t1) > 0){
+        } else if (Date.parse(t2) - Date.parse(t1) > 0) {
             alert("开始日期早于申请日期")
-        else if(start>end){
+        } else if (start > end) {
             alert("日期输入错误")
         } else {
             json.start = start;
