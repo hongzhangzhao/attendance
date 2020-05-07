@@ -35,7 +35,8 @@ public class StatController {
 
     @RequestMapping("/stat")
     public String stat(HttpServletRequest request, ModelMap modelMap) {
-
+        UserVO userVO = (UserVO) request.getAttribute("userInfo");
+        Long roleId = userVO.getRoleId();
         List<WorkCheck> workChecks = workService.listWorkChecks();
         for (WorkCheck workCheck : workChecks) {
             workCheck.setTimeStr(DateUtil.longToString2(workCheck.getTime().getTime()));
@@ -66,7 +67,7 @@ public class StatController {
                 workCheck.setName(userService.getUserById(workCheck.getUserId()).getName());
         }
 
-        List<Schedule> leaves = scheduleService.listLeaves();
+        List<Schedule> leaves = scheduleService.listLeavesNew(roleId);
         for (Schedule schedule : leaves) {
             if (schedule.getStatus() == 0) {
                 schedule.setStatusStr("审核中");
@@ -82,7 +83,7 @@ public class StatController {
         }
         modelMap.addAttribute("leaves", leaves);
 
-        List<Schedule> buzzs = scheduleService.listBuzzs();
+        List<Schedule> buzzs = scheduleService.listBuzzsNew(roleId);
         for (Schedule schedule : buzzs) {
             if (schedule.getStatus() == 0) {
                 schedule.setStatusStr("审核中");

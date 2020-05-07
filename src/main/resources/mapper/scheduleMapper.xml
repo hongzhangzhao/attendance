@@ -23,6 +23,11 @@
         SELECT * FROM schedule WHERE type=#{type} ORDER BY create_time ASC ;
     </select>
 
+    <select id="listShcedulesByTypeNew" resultType="edu.zygxy.pojo.Schedule">
+        SELECT a.* FROM schedule as a left join user as b on a.user_id = b.id
+        WHERE type=#{type} and b.role_id = #{roleId} ORDER BY a.create_time ASC ;
+    </select>
+
     <update id="updateScheduleStatus">
         UPDATE schedule SET status=#{status} WHERE id=#{id}
     </update>

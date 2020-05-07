@@ -11,6 +11,7 @@ public class UserVO {
     private Long phone;
     private String department;
     private String role;
+    private Long roleId;
 
     public Long getId() {
         return id;
@@ -59,6 +60,14 @@ public class UserVO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     @Override

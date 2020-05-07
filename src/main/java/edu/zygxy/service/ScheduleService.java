@@ -19,9 +19,13 @@ public interface ScheduleService {
 
     List<Schedule> listLeaves();
 
+    List<Schedule> listLeavesNew(long roleId);
+
     List<Schedule> listBuzzs(long userId);
 
     List<Schedule> listBuzzs();
+
+    List<Schedule> listBuzzsNew(long roleId);
 
     void acceptSchedule(long id);
 

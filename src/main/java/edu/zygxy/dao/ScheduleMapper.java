@@ -16,6 +16,8 @@ public interface ScheduleMapper {
 
     List<Schedule> listShcedulesByType(int type);
 
+    List<Schedule> listShcedulesByTypeNew(@Param("type") int type, @Param("roleId") long roleId);
+
     int insertSchedule(Schedule schedule);
 
     int deleteSchedule(long id);

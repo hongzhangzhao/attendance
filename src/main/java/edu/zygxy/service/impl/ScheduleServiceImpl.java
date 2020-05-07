@@ -49,6 +49,16 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    public List<Schedule> listLeavesNew(long roleId) {
+        return scheduleMapper.listShcedulesByTypeNew(0, roleId);
+    }
+
+    @Override
+    public List<Schedule> listBuzzsNew(long roleId) {
+        return scheduleMapper.listShcedulesByTypeNew(1, roleId);
+    }
+
+    @Override
     public List<Schedule> listBuzzs(long userId) {
         return scheduleMapper.listSchedulesByUserIdAndType(userId,1);
     }

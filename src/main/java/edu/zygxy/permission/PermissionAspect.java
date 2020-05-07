@@ -49,8 +49,10 @@ public class PermissionAspect {
             userVO.setId(user.getId());
             userVO.setName(user.getName());
             edu.zygxy.pojo.Role role = roleService.getRoleById(user.getRoleId());
-            if (role != null)
+            if (role != null){
                 userVO.setRole(role.getName());
+                userVO.setRoleId(role.getId());
+            }
             request.setAttribute("userInfo", userVO);
             //获取方法
             MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
