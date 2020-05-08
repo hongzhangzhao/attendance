@@ -49,7 +49,7 @@ public class DepartmentController {
     }
 
     @Role({"1","2"})
-    @RequestMapping(value = "w/api/departments", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/api/departments", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public JsonResponse insertDepartment(@RequestBody Department department) {
         departmentService.insertDepartment(department);

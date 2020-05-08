@@ -62,24 +62,28 @@
     })
     function addDepartment() {
         var json = {};
-        json.name = $("#name").val();
-        json.desc = $("#desc").val();
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/api/departments",
-            data: JSON.stringify(json),
-            dataType: "json",
-            success: function (result) {
-                var obj = eval(result);
-                if (obj.code == 200) {
-                    alert("新增部门成功!");
-                    window.location.href = '/department';
-                } else {
-                    alert(obj.message);
+        if($("#name").val() == "" || $("#desc").val() == ""){
+            alert("输入不能为空")
+        }else {
+            json.name = $("#name").val();
+            json.desc = $("#desc").val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/api/departments",
+                data: JSON.stringify(json),
+                dataType: "json",
+                success: function (result) {
+                    var obj = eval(result);
+                    if (obj.code == 200) {
+                        alert("新增部门成功!");
+                        window.location.href = '/department';
+                    } else {
+                        alert(obj.message);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 </script>
 </body>
